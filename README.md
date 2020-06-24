@@ -1,4 +1,4 @@
-do recover mp4[h264] file with no moov atom
+recover mp4[h264] file with no moov atom
 
 install:  make install clean
 	
