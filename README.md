@@ -4,4 +4,4 @@ install:
 	make install clean
 	
 use:
-	./mp4recover [-r frame_rate] [-o outout_directory] file[s]
+	./mp4recover [-r frame_rate] [-o output_directory] file[s]
