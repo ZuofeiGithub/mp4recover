@@ -4,6 +4,16 @@
 #include <sys/stat.h>
 #include <netinet/in.h>
 
+#define d_hdlrlen 33
+#define sttslen 24
+#define vmhdlen 20
+#define dinflen 36
+#define mdhdlen 32
+#define hdlrlen 45
+#define tkhdlen 92
+#define edtslen 36
+#define mvhdlen 108
+
 void DecodeSPS(unsigned char *SPSbuf, int SPSlen, unsigned int *frame_width, unsigned int *frame_height, unsigned int *frame_rate); // sps.c
 
 int main(int arg_cnt, char *args[]){
@@ -140,17 +150,8 @@ int main(int arg_cnt, char *args[]){
 	};
 	
 	fclose(in_file);
-	
-#define d_hdlrlen 33
-#define sttslen 24
-#define vmhdlen 20
-#define dinflen 36
-#define mdhdlen 32
-#define hdlrlen 45
-#define tkhdlen 92
-#define edtslen 36
-#define mvhdlen 108
-	
+
+// forming moov atom
 	unsigned char encoder[] = "MP4RECOVER";
 	unsigned int avcClen = 8 + 6 + 2 + SPS_length + 1 + 2 + PPS_length + 1, _avcClen = htonl(avcClen);
 	unsigned int avc1len = avcClen + 86, _avc1len = htonl(avc1len);
