@@ -1,5 +1,5 @@
 CC=cc
-COMPILE_FLAGS=-g
+COMPILE_FLAGS=
 LD_FLAGS=
 
 mp4recover: sps.o mp4recover.o

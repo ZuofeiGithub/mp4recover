@@ -141,7 +141,6 @@ void DecodeSPS(unsigned char *SPSbuf, int SPSlen, unsigned int *frame_width, uns
 	SPS.seq_scaling_matrix_present_flag = ReadBit();
 	if(SPS.seq_scaling_matrix_present_flag){;};
     };
-	
     SPS.log2_max_frame_num_minus4 = ReadUE();
     SPS.pic_order_cnt_type = ReadUE();
     if(SPS.pic_order_cnt_type == 0){
@@ -170,7 +169,6 @@ void DecodeSPS(unsigned char *SPSbuf, int SPSlen, unsigned int *frame_width, uns
     };
     *frame_width = (SPS.pic_width_in_mbs_minus1 + 1) * 16 - SPS.frame_crop_left_offset * 2 - SPS.frame_crop_right_offset * 2;
     *frame_height = (2 - SPS.frame_mbs_only_flag) * (SPS.pic_height_in_map_units_minus1 + 1) * 16 - SPS.frame_crop_top_offset * 2 - SPS.frame_crop_bottom_offset * 2;
-    
     SPS.vui_parameters_present_flag = ReadBit();
     if(SPS.vui_parameters_present_flag){
 	SPS.aspect_ratio_info_present_flag = ReadBit();

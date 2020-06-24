@@ -75,6 +75,7 @@ int main(int arg_cnt, char *args[]){
 	    continue;
 	};
 
+// read corrupt file
 	while(1){
 	    int rlen = fread(buf, 1, 8, in_file);
 	    if(rlen == 8){
@@ -421,7 +422,8 @@ int main(int arg_cnt, char *args[]){
 	fwrite(&out_offset, sizeof(unsigned int), 1, out_file); // write correct mdat atom length
 	
 	fclose(out_file);
-	
+
+// rename output file
 	struct tm tm_struct = *localtime(&stat_struct.st_birthtime);
 	char start[64] = {0};
 	strftime(start, sizeof(start), "%Y-%m-%d__%H-%M-%S", &tm_struct);
