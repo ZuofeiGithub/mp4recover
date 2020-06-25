@@ -430,19 +430,17 @@ int main(int arg_cnt, char *args[]){
 	strftime(start, sizeof(start), "%Y-%m-%d__%H-%M-%S", &tm_struct);
 	stat_struct.st_birthtime += htonl(Duration) / 1000;
 	tm_struct = *localtime(&stat_struct.st_birthtime);
-	char stop[24] = {0};
+	char stop[10] = {0};
 	strftime(stop, sizeof(start), "%H-%M-%S", &tm_struct);
 	sprintf(start, "%s--%s.mp4", start, stop);
 
 	char *slash = strrchr(file_name, '/');
+	char old_file_name[512] = {0};
+	strcpy(old_file_name, file_name);
 	if(strlen((char *)out_dir) != 0){
-	    char old_file_name[512] = {0};
-	    strcpy(old_file_name, file_name);
 	    sprintf(file_name, "%s/%s%c", out_dir, start, 0);
 	    rename(old_file_name, file_name);
 	}else if(slash != NULL){
-	    char old_file_name[512] = {0};
-	    strcpy(old_file_name, file_name);
 	    *slash = 0;
 	    sprintf(file_name, "%s/%s%c", file_name, start, 0);
 	    rename(old_file_name, file_name);
