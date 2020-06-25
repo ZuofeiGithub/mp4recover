@@ -13,6 +13,7 @@
 #define tkhdlen 92
 #define edtslen 36
 #define mvhdlen 108
+#define avc1hdrlen 86
 
 void DecodeSPS(unsigned char *SPSbuf, int SPSlen, unsigned int *frame_width, unsigned int *frame_height, unsigned int *frame_rate); // sps.c
 
@@ -155,7 +156,7 @@ int main(int arg_cnt, char *args[]){
 // forming moov atom
 	unsigned char encoder[] = "MP4RECOVER";
 	unsigned int avcClen = 8 + 6 + 2 + SPS_length + 1 + 2 + PPS_length + 1, _avcClen = htonl(avcClen);
-	unsigned int avc1len = avcClen + 86, _avc1len = htonl(avc1len);
+	unsigned int avc1len = avcClen + avc1hdrlen, _avc1len = htonl(avc1len);
 	unsigned int stsdlen = avc1len + 16, _stsdlen = htonl(stsdlen);
 	unsigned int stsslen = 16 + KeyFrames * 4, _stsslen = htonl(stsslen);
 	unsigned int stsclen = 16 + KeyFrames * 12, _stsclen = htonl(stsclen);
@@ -261,7 +262,7 @@ int main(int arg_cnt, char *args[]){
 	memset(avc1, 0, avc1len);
 	memcpy(avc1, &_avc1len, 4);
 	strncpy((char *)avc1 + 4, "avc1", 4);
-	avc1[15] = 0x01; // data referebce index
+	avc1[15] = 0x01; // data reference index
 	memcpy(avc1 + 32, &width, 2); // video width
 	memcpy(avc1 + 34, &height, 2); // video height
 	avc1[37] = 0x48; // horizontal video resolution, 72 pix/inch
@@ -270,7 +271,7 @@ int main(int arg_cnt, char *args[]){
 	avc1[83] = 0x18; // color depth
 	avc1[84] = 0xFF; // -1
 	avc1[85] = 0xFF; // -1
-	memcpy(avc1 + 86, avcC, avcClen);
+	memcpy(avc1 + avc1hdrlen, avcC, avcClen);
 
 	unsigned char *stsd = (unsigned char *)malloc(stsdlen); // Sample Description Atom
 	memset(stsd, 0, stsdlen);
