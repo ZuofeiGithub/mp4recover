@@ -108,7 +108,7 @@ int _ReadSE(){
 };
 
 void DecodeSPS(unsigned char *SPSbuf, int SPSlen, unsigned int *frame_width, unsigned int *frame_height, unsigned int *frame_rate){
-    _SPSlen=0;
+    _SPSlen = 0;
     for(int i = 0; i < SPSlen; i++){
 	if( i+2 < SPSlen && ( SPSbuf[i] == 0 && SPSbuf[i + 1] == 0 && SPSbuf[i + 2] == 3 ) ){ // correct for emul symbols 00 00 03 xx
 	    _SPSbuf[_SPSlen++] = SPSbuf[i];

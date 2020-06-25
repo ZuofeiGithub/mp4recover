@@ -241,7 +241,7 @@ int main(int arg_cnt, char *args[]){
 	strncpy((char *)dinf + 28, "url ", 4);
 	dinf[35] = 0x01; // data flags
 
-	unsigned char *avcC = (unsigned char *)malloc( avcClen );
+	unsigned char *avcC = (unsigned char *)malloc(avcClen);
 	memset(avcC, 0, avcClen);
 	memcpy(avcC, &_avcClen, 4);
 	strncpy((char *)avcC + 4, "avcC", 4);
@@ -257,7 +257,7 @@ int main(int arg_cnt, char *args[]){
 	memcpy(avcC + 16 + SPS_length + 1, &_PPS_length, 2);
 	memcpy(avcC + 16 + SPS_length + 1 + 2, PPS, PPS_length);
 
-	unsigned char *avc1 = (unsigned char *)malloc( avc1len );
+	unsigned char *avc1 = (unsigned char *)malloc(avc1len);
 	memset(avc1, 0, avc1len);
 	memcpy(avc1, &_avc1len, 4);
 	strncpy((char *)avc1 + 4, "avc1", 4);
@@ -272,7 +272,7 @@ int main(int arg_cnt, char *args[]){
 	avc1[85] = 0xFF; // -1
 	memcpy(avc1 + 86, avcC, avcClen);
 
-	unsigned char *stsd = (unsigned char *)malloc( stsdlen ); // Sample Description Atom
+	unsigned char *stsd = (unsigned char *)malloc(stsdlen); // Sample Description Atom
 	memset(stsd, 0, stsdlen);
 	memset(stsd, 0, stsdlen);
 	memcpy(stsd, &_stsdlen, 4);
@@ -289,7 +289,7 @@ int main(int arg_cnt, char *args[]){
 	unsigned int FrameDuration = htonl(TimeBase / FrameRate);
 	memcpy(stts + 20, &FrameDuration, 4); // frame duration (TimeBase / FrameRate)
 
-	unsigned char *stss = (unsigned char *)malloc( stsslen ); // Sample Table Sync Sample Atom
+	unsigned char *stss = (unsigned char *)malloc(stsslen); // Sample Table Sync Sample Atom
 	memset(stss, 0, stsslen);
 	memcpy(stss, &_stsslen, 4); // stss atom length
 	strncpy((char *)stss + 4, "stss", 4);
@@ -305,7 +305,7 @@ int main(int arg_cnt, char *args[]){
 	    };
 	};
 
-	unsigned char *stsc = (unsigned char *)malloc( stsclen ); // Sample To Chunk Atom
+	unsigned char *stsc = (unsigned char *)malloc(stsclen); // Sample To Chunk Atom
 	memset(stsc, 0, stsclen);
 	memcpy(stsc, &_stsclen, 4); // stsc atom length
 	strncpy((char *)stsc + 4, "stsc", 4);
@@ -331,7 +331,7 @@ int main(int arg_cnt, char *args[]){
 	    };
 	};
 
-	unsigned char *stsz = (unsigned char *)malloc( stszlen ); // Sample Size Box Atom
+	unsigned char *stsz = (unsigned char *)malloc(stszlen); // Sample Size Box Atom
 	memset(stsz, 0, stszlen);
 	memcpy(stsz, &_stszlen, 4); // stsz atom length
 	strncpy((char *)stsz + 4, "stsz", 4);
@@ -339,7 +339,7 @@ int main(int arg_cnt, char *args[]){
 	memcpy(stsz + 16, &_Frames, 4); // number of entries
 	memcpy(stsz + 20, sizes, Frames * 4);
 
-	unsigned char *stco = (unsigned char *)malloc( stcolen ); // Chunk Offset Box Atom
+	unsigned char *stco = (unsigned char *)malloc(stcolen); // Chunk Offset Box Atom
 	memset(stco, 0, stcolen);
 	memcpy(stco, &_stcolen, 4); // stco atom length
 	strncpy((char *)stco + 4, "stco", 4);
@@ -352,14 +352,14 @@ int main(int arg_cnt, char *args[]){
 	strncpy((char *)d_hdlr + 4, "hdlr", 4);
 	strncpy((char *)d_hdlr + 16, "mdirappl", 8);
 
-	unsigned char *data = (unsigned char *)malloc( datalen ); // User Data Atom
+	unsigned char *data = (unsigned char *)malloc(datalen); // User Data Atom
 	memset(data, 0, datalen);
 	memcpy(data, &_datalen, 4); // data atom length
 	strncpy((char *)data + 4, "data", 4);
 	data[11] = 1;
 	memcpy(data + 16, encoder, sizeof(encoder) - 1);
 
-	unsigned char *ilst = (unsigned char *)malloc( ilstlen ); // ilst Atom
+	unsigned char *ilst = (unsigned char *)malloc(ilstlen); // ilst Atom
 	memset(ilst, 0, ilstlen);
 	memcpy(ilst, &_ilstlen, 4); // ilst atom length
 	strncpy((char *)ilst + 4, "ilst", 4);
@@ -368,7 +368,7 @@ int main(int arg_cnt, char *args[]){
 	strncpy((char *)ilst + 13, "too", 3);
 	memcpy(ilst + 16, data, datalen);
 
-	unsigned char *udta = (unsigned char *)malloc( udtalen ); // User Data Atom
+	unsigned char *udta = (unsigned char *)malloc(udtalen); // User Data Atom
 	memset(udta, 0, udtalen);
 	memcpy(udta, &_udtalen, 4); // udta atom length
 	strncpy((char *)udta + 4, "udta", 4);
@@ -431,7 +431,6 @@ int main(int arg_cnt, char *args[]){
 	tm_struct = *localtime(&stat_struct.st_birthtime);
 	char stop[24] = {0};
 	strftime(stop, sizeof(start), "%H-%M-%S", &tm_struct);
-
 	sprintf(start, "%s--%s.mp4", start, stop);
 
 	char *slash = strrchr(file_name, '/');
